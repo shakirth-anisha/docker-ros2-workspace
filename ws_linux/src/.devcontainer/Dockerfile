@@ -23,7 +23,9 @@ RUN apt-get install -y \
     vim \
     clang \
     clang-format \
-    clang-tidy
+    clang-tidy \
+    ros-humble-turtlesim \
+    ros-humble-rqt*
 
 RUN echo "source /opt/ros/humble/setup.bash" >> /home/$USERNAME/.bashrc
 ENV SHELL /bin/bash

@@ -14,6 +14,7 @@ This repository provides a base workspace structure for developing ROS 2 applica
 ---
 
 ## Repository structure
+Use `ws_linux` or `ws_mac` according to your operating system. Each workspace handles display forwarding and mounting differently, hence the separate workspace directories.
 
 ```text
 ws/
