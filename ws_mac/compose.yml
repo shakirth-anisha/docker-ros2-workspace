@@ -1,0 +1,37 @@
+services:
+  ros2:
+    build:
+      context: .
+      args:
+        USERNAME: ${USER:-ros2user}
+        USER_UID: ${UID:-1000}
+        USER_GID: ${GID:-1000}
+    image: ros2-humble-dev:latest
+    container_name: ros2-workspace
+    network_mode: host
+    stdin_open: true
+    tty: true
+    working_dir: /home/ws
+    user: ${USER:-ros2user}
+
+    environment:
+      - ROS_DOMAIN_ID=42
+      - ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST
+      - DISPLAY=host.docker.internal:0
+      - QT_X11_NO_MITSHM=1
+      - XAUTHORITY=/home/${USER:-ros2user}/.Xauthority
+
+    volumes:
+      # Workspace with persistent build cache
+      - workspace:/home/ws
+
+      # Source code overlays on top
+      - ./src:/home/ws/src
+
+      # X11 socket and authority for GUI applications
+      - ${HOME}/.Xauthority:/home/${USER:-ros2user}/.Xauthority:ro
+
+    command: /bin/bash
+
+volumes:
+  workspace:
